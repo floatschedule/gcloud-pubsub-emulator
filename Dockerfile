@@ -1,11 +1,11 @@
-FROM golang:alpine as builder
+FROM golang:alpine AS builder
 
 RUN apk update && apk upgrade && apk add --no-cache curl git
 
 RUN curl -s https://raw.githubusercontent.com/eficode/wait-for/master/wait-for -o /usr/bin/wait-for
 RUN chmod +x /usr/bin/wait-for
 
-RUN go get github.com/floatschedule/pubsubc
+RUN go install github.com/floatschedule/pubsubc@latest
 
 ###############################################################################
 
@@ -19,4 +19,4 @@ RUN apk --update add openjdk8-jre netcat-openbsd && gcloud components install be
 
 EXPOSE 8681
 
-CMD /run.sh
+CMD ["/run.sh"]
